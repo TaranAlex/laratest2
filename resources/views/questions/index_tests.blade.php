@@ -12,7 +12,7 @@
 
                         <ol>
                             @foreach ($tests as $test)
-                                <li><a href="/questions/show_test/{{ $test->id }}">{{$test->test_name}}</a>
+                                <li><a href="/questions/show_test/{{ $test->id }}" style="margin-left: 10px;">{{$test->test_name}}</a>
                                     
                                 </li>                            
                             @endforeach
@@ -20,6 +20,8 @@
 
                     
                         <a href="/questions">К списку вопросов</a>
+                        <br>
+                        <a href="/home">В личный кабинет</a>
                     </div>
                 </div>
             </div>

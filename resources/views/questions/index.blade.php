@@ -41,7 +41,7 @@
                             <ol>
                                 @foreach ($questions as $question)
 
-                                    <li><a href="/questions/show/{{ $question->id }}">{{$question->question}}</a>
+                                    <li><a href="/questions/show/{{ $question->id }}" style="margin-left: 10px;">{{$question->question}}</a>
                                         <input type="checkbox" name="add_question[]" value="{{$question->id}}" id="add_question" style="float: right; width: 35px; height: 35px;">
                                         <div  class="form-control {{ ($errors->has('add_question') ? 'is-invalid': '') }}" style="float: right; width: 185px;">Добавить вопрос в тест</div>
                                         @if($errors->has('add_question'))
@@ -57,9 +57,11 @@
                             <button class="sub-btn">Сохранить тест</button><br>
 
                         </form>
-
+                        <br>
                         <a href="/questions/create">Добавить вопрос</a><br>
                         <a href="{{route('index_tests')}}">К списку тестов</a>
+                        <br>
+                        <a href="/home">В личный кабинет</a>
                     </div>
                 </div>
             </div>

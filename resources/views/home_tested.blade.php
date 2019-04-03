@@ -16,9 +16,11 @@
 
                     Добро пожаловать в личный кабинет, {{ Auth::user()->fio }}
                 </div>
+                <div style="margin: 20px;"><a href="{{ route('testing') }}">Пройти тест</a>
+                    <br>
+                    <a href="{{ route('results') }}" >Просмотр результатов</a>
+                </div>
             </div>
-            <a href="{{ route('testing') }}">Пройти тест</a><br>
-            <a href="{{ route('results') }}" >Просмотр результатов</a>
         </div>
     </div>
 </div>

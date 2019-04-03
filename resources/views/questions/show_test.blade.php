@@ -8,7 +8,7 @@
                 <div class="card">
 
 
-                    <h2>Тест № {{$test->id}} : {{$test->test_name}}</h2>
+                    <h2 style="margin: 20px;">Тест № {{$test->id}} : {{$test->test_name}}</h2>
 
                     <ol>
                         @foreach($questions as $question)
@@ -19,8 +19,11 @@
                                     @foreach ($question['answers'] as $answer)
                                         <p>
                                             {{$answer['answerName'] }}
-                                            <sub>{{$answer['answerStatus'] }}
-                                            </sub>
+                                            @if($answer['answerStatus'] == 'correct')
+                                                {{ ' - правильный ответ' }}
+                                            @else
+                                                {{ ' - неправильный ответ' }}
+                                            @endif
                                         </p>
                                     @endforeach
                                 </ol>
@@ -30,8 +33,9 @@
 
 
                 </div>
+                <br>
+                <a href="{{route('index_tests')}}" style="margin: 20px;">К списку тестов</a>
             </div>
-            <a href="{{route('index_tests')}}">К списку тестов</a>
         </div>
     </div>
 @endsection

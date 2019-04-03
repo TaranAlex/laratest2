@@ -25,8 +25,8 @@ class QuestionRequest extends FormRequest
     {
         return [
             'question' => 'required|string|max:255|min:3',
-            'answer' => 'required|array|max:255',
-            'points' => 'required|array',
+            'answer' => 'required',
+            'points' => 'required',
             "correct_answer" => "required|array|max:1",
         ];
     }

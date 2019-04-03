@@ -45,6 +45,7 @@
                             <br>
 
                             <h2>Тест № {{$test->id}} : {{$test->test_name}}</h2>
+                            <input type="hidden" name="test_id" value="{{$test->id}}">
 
                             <ol>
                                 @foreach($questions as $question)
@@ -55,8 +56,8 @@
                                             @foreach ($question['answers'] as $answer)
                                                 <p>
                                                     <input type="radio" id="{{$answer['answerName'] }}"
-                                                           name="question_id_{{ $question['questionId'] }}"
-                                                           value="answer_points_{{$answer['answerPoints'] }}" checked>
+                                                           name="questions[{{$question['questionId']  }}]"
+                                                           value="{{$answer['answerPoints'] }}" checked>
                                                     <label for="contactChoice1">{{$answer['answerName'] }}</label>
                                                 </p>
                                             @endforeach
@@ -70,7 +71,8 @@
                         </form>
                     </div>
                 </div>
-                <a href="{{route('testing')}}">К списку тестов</a>
+                <br>
+                <a href="{{route('testing')}}" style="margin: 20px;">К списку тестов</a>
             </div>
         </div>
 @endsection

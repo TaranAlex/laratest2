@@ -22,6 +22,8 @@ use App\Models\TestQuestion;
 
 use App\Http\Requests\TestResultRequest;
 
+use App\Models\TestResults;
+
 class QuestionController extends Controller
 {
     /**
@@ -135,15 +137,26 @@ class QuestionController extends Controller
         return redirect(route('index_tests'));
     }
 
+    /**
+     * @param TestResultRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store_test_result(TestResultRequest $request)
     {
 
         //Сохранение результатов тестов
-        $testResults = $request;
-        dd($testResults);
-        foreach ($testResults as $key => $testResult){
-            //dump($testResult);
-        }
+
+        $testResults = $request->all();
+        $user_id = $testResults['user_name'];
+        $test_id = $testResults['test_id'];
+        $questions = $testResults['questions'];
+        $points = array_sum($questions);
+
+        $testResultsModel = new TestResults();
+        $testResultsModel->user_id = $user_id;
+        $testResultsModel->test_id = $test_id;
+        $testResultsModel->points = $points;
+        $testResultsModel->save();
 
         return redirect(route('home_tested'));
     }
@@ -362,7 +375,6 @@ class QuestionController extends Controller
 
     public function testing()
     {
-        //dd('testing');
         $questions = Question::all();
         $answers = Answer::all();
         $tests = Test::all();
@@ -372,7 +384,19 @@ class QuestionController extends Controller
 
     public function results()
     {
-        //dd('results');
-        return view('questions.results');
+        $results = TestResults::select([
+            'test_results.id as result_id',
+            'test_results.user_id',
+            'test_results.test_id',
+            'test_results.points',
+            'users.id',
+            'users.fio as fio',
+            'tests.id'
+        ])
+            ->join('tests', 'test_results.test_id', '=', 'tests.id')
+            ->join('users', 'test_results.user_id', '=', 'users.id')
+            ->get();
+
+        return view('questions.results', compact(['results']));
     }
 }
