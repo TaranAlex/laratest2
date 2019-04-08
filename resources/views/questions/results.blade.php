@@ -12,7 +12,9 @@
                     <ol>
                         @foreach ($results as $result)
                             <li>
-                                <p style="margin-left: 10px;">№ результата: {{ $result->result_id }}, тестируемый: {{ $result->fio }}, тест №: {{ $result->test_id }}, количество баллов: {{ $result->points }};</p>
+                                <p style="margin-left: 10px;">№ результата: {{ $result->result_id }},
+                                    тестируемый: {{ $result->fio }}, тест: {{ $result->test_name }}, количество
+                                    баллов: {{ $result->points }};</p>
                             </li>
                             <br>
                         @endforeach

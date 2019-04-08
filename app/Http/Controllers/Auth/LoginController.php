@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -44,4 +45,18 @@ class LoginController extends Controller
         Auth::logout();
         return redirect('/login');
     }*/
+
+    public function redirectToProvider()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('github')->stateless()->user();
+
+        dd($user);
+        // $user->token;
+    }
 }
+

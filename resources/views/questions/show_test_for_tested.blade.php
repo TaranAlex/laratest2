@@ -4,9 +4,8 @@
     <title></title>
     <style type="text/css">
 
-        select:focus{
-            border: 3px solid blue;
-            box-shadow: 1px 1px 3px 0 blue;
+        .is-invalid {
+            border-color: #e3342f;
         }
 
     </style>
@@ -28,24 +27,17 @@
 
                             @csrf
 
-                            <select name="user_name" id="user_name"  style="width: 690px; height: 40px; color: blue" class="form-control {{ ($errors->has('user_name') ? 'is-invalid': '') }}">
-                                <option value="" disabled selected="">Выберите Ваше ФИО</option>
-
-                                @foreach($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->fio }}</option>
-                                @endforeach
-
-                            </select>
-
-                            @if($errors->has('user_name'))
-                                {{ $errors->first('user_name') }}
-                            @endif
-
-                            <br>
-                            <br>
+                            <input type="hidden" name="user_id" value="{{$user->id}}">
 
                             <h2>Тест № {{$test->id}} : {{$test->test_name}}</h2>
                             <input type="hidden" name="test_id" value="{{$test->id}}">
+                            <br>
+                            <h4>Тестируемый: {{$user->fio}}</h4>
+                            <br>
+                            
+                            @if($errors->has('questions'))
+                                {{ $errors->first('questions') }}
+                            @endif
 
                             <ol>
                                 @foreach($questions as $question)
@@ -57,8 +49,8 @@
                                                 <p>
                                                     <input type="radio" id="{{$answer['answerName'] }}"
                                                            name="questions[{{$question['questionId']  }}]"
-                                                           value="{{$answer['answerPoints'] }}" checked>
-                                                    <label for="contactChoice1">{{$answer['answerName'] }}</label>
+                                                           value="{{$answer['answerPoints'] }}">
+                                                    <label for="questions[{{$question['questionId']  }}]">{{$answer['answerName'] }}</label>
                                                 </p>
                                             @endforeach
                                         </ol>

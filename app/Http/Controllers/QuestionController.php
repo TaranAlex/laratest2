@@ -8,6 +8,8 @@ use App\Http\Requests\QuestionRequest;
 
 use App\Http\Requests\TestsRequest;
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Question;
@@ -143,11 +145,10 @@ class QuestionController extends Controller
      */
     public function store_test_result(TestResultRequest $request)
     {
-
         //Сохранение результатов тестов
 
         $testResults = $request->all();
-        $user_id = $testResults['user_name'];
+        $user_id = $testResults['user_id'];
         $test_id = $testResults['test_id'];
         $questions = $testResults['questions'];
         $points = array_sum($questions);
@@ -213,9 +214,14 @@ class QuestionController extends Controller
         return view('questions.show_test', compact('test', 'questions'));
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show_test_for_tested($id)
     {
-        $users = User::where('users.role', '=', 'tested')->get();
+        //$users = User::where('users.role', '=', 'tested')->get();
+        $user = Auth::user();
 
         $test = Test::find($id);
 
@@ -256,7 +262,7 @@ class QuestionController extends Controller
             }
         }
 
-        return view('questions.show_test_for_tested', compact('test', 'questions', 'users'));
+        return view('questions.show_test_for_tested', compact('test', 'questions', 'user'));
     }
 
     /**
@@ -305,7 +311,6 @@ class QuestionController extends Controller
 
                     if (count($correctAnswer) > 0) {
                         foreach ($correctAnswer as $keyAnswer => $correct) {
-
                             if ((string)$key == $correct) {
                                 $answerModel->status = 'correct';
                                 unset($correctAnswer[$keyAnswer]);
@@ -352,8 +357,8 @@ class QuestionController extends Controller
                     $answerModel->save();
                     break;
                 }
-                unset($answers[$answerKey]);
-                break;
+                //unset($answers[$answerKey]);
+                //break;
             }
         }
 
@@ -371,6 +376,12 @@ class QuestionController extends Controller
         $question = Question::find($id)->delete();
         //$answers = Answer::where('question_id', '=', $id)->delete();
         return redirect(route('questions.index'));
+    }
+
+    public function destroy_test($id)
+    {
+        $test = Test::find($id)->delete();
+        return redirect(route('index_tests'));
     }
 
     public function testing()
@@ -391,7 +402,8 @@ class QuestionController extends Controller
             'test_results.points',
             'users.id',
             'users.fio as fio',
-            'tests.id'
+            'tests.id',
+            'tests.test_name'
         ])
             ->join('tests', 'test_results.test_id', '=', 'tests.id')
             ->join('users', 'test_results.user_id', '=', 'users.id')

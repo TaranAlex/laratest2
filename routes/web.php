@@ -98,10 +98,10 @@ Route::get('/', 'Auth\LoginController@showLoginForm');
 //
 //Route::resource('cars', 'CarController');
 //
-//Route::resource('alboms', 'AlbomsController');
-//Route::get('alboms/show/{id}', 'AlbomsController@show');
-//Route::get('alboms/{id}/edit', 'AlbomsController@edit');
-//Route::get('alboms/delete/{id}', 'AlbomsController@destroy');
+Route::resource('alboms', 'AlbomsController');
+Route::get('alboms/show/{id}', 'AlbomsController@show');
+Route::get('alboms/{id}/edit', 'AlbomsController@edit');
+Route::get('alboms/delete/{id}', 'AlbomsController@destroy');
 
 
 //Route::resource('files', 'FileController');
@@ -166,6 +166,7 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
         Route::get('questions/show/{id}', 'QuestionController@show');
         Route::get('questions/{id}/edit', 'QuestionController@edit');
         Route::get('questions/delete/{id}', 'QuestionController@destroy');
+        Route::get('destroy_test/{id}', 'QuestionController@destroy_test')->name('destroy_test');
         Route::get('questions/show_test/{id}', 'QuestionController@show_test');
         Route::get('index_tests', 'QuestionController@index_tests')->name('index_tests');
         Route::post('store_test', 'QuestionController@store_test')->name('store_test');
@@ -181,5 +182,8 @@ Route::group(['middleware' => 'auth'], function () {
 //Route::get('error_access', function () {
 //    return view('errors.error_access');
 //});
+
+Route::get('login/github', 'Auth\LoginController@redirectToProvider');
+Route::get('/oauth-callback', 'Auth\LoginController@handleProviderCallback');
 
 

@@ -24,7 +24,7 @@ class TestResultRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_name' => 'required',
+            'questions' => 'required|min:3',
         ];
     }
 }

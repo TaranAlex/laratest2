@@ -44,4 +44,10 @@ return [
         ],
     ],
 
+    'github' => [
+        'client_id' => '3bbbfcb17363821f7338',
+        'client_secret' => '380169592d7a5cc6682fba005ea1800a04ad2054',
+        'redirect' => 'http://velo-mania.com.ua:8000/oauth-callback'
+    ],
+
 ];

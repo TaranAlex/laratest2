@@ -14,7 +14,7 @@
                             </div>
                         @endif
 
-                        Добро пожаловать в личный кабинет, {{ Auth::user()->fio }}
+                        <h3>Добро пожаловать в личный кабинет, {{ Auth::user()->fio }}</h3>
                     </div>
                     <div style="margin: 20px;"><a href="/questions/create">Добавить вопрос</a>
                         <br>
