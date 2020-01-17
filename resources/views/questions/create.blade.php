@@ -137,6 +137,8 @@
                                        class="form-control-my {{ ($errors->has('points.0') ? 'is-invalid': '') }}"
                                        value="{{old('points.0')}}">
 
+
+
                             @endif
 
                             @if($errors->has('correct_answer'))
@@ -154,6 +156,13 @@
                             <button class="sub-btn">Сохранить</button>
 
                         </form>
+
+                        <form action="{{ route('upload') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="file" multiple name="avatar[]">
+                            <button>Save file</button>
+                        </form>
+
                         <br>
                         <a href="/questions">К списку вопросов</a>
                         <br>

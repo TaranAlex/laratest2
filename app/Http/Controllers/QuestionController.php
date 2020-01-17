@@ -25,6 +25,7 @@ use App\Models\TestQuestion;
 use App\Http\Requests\TestResultRequest;
 
 use App\Models\TestResults;
+use Illuminate\Support\Facades\Storage;
 
 class QuestionController extends Controller
 {
@@ -410,5 +411,19 @@ class QuestionController extends Controller
             ->get();
 
         return view('questions.results', compact(['results']));
+    }
+
+
+
+        public function upload(Request $request)
+    {
+        foreach ($request->file() as $file) {
+            foreach ($file as $f) {
+                $f->move(storage_path('public'), time().'_'.$f->getClientOriginalName());
+            }
+        }
+
+        return redirect(route('questions.index'));
+
     }
 }

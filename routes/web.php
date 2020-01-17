@@ -106,14 +106,14 @@ Route::get('alboms/delete/{id}', 'AlbomsController@destroy');
 
 //Route::resource('files', 'FileController');
 
-//Route::get('/form', function () {
-//    return view('form-file');
-//});
+Route::get('/form', function () {
+    return view('form-file');
+});
+
+Route::post('/file/save', 'FileController@save')
+    ->name('save-file');
 //
-//Route::post('/file/save', 'FileController@save')
-//    ->name('save-file');
-//
-//Route::get('/store', 'FileController@store');
+Route::get('/store', 'FileController@store');
 //
 //
 //Route::get('/form', function () {
@@ -170,6 +170,7 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
         Route::get('questions/show_test/{id}', 'QuestionController@show_test');
         Route::get('index_tests', 'QuestionController@index_tests')->name('index_tests');
         Route::post('store_test', 'QuestionController@store_test')->name('store_test');
+        Route::post('upload', 'QuestionController@upload')->name('upload');
 });
 
 Route::group(['middleware' => 'auth'], function () {

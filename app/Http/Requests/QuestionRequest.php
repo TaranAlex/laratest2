@@ -26,8 +26,8 @@ class QuestionRequest extends FormRequest
         return [
             'question' => 'required|string|max:255|min:3',
             'answer.*' => 'required|string',
-            //'points.*' => 'required|numeric',
-            'points.*' => 'required',
+            'points.*' => 'required|numeric',
+            //'points.*' => 'required',
             //"correct_answer.*" => 'required|nullable|in:1,0',
             "correct_answer" => 'required|min:1',
         ];
